@@ -3,7 +3,7 @@
 ### This app is in in reference to docker compose getting started 
 ref: https://docs.docker.com/compose/gettingstarted/
 
-## how to run the project
+## running our project
 
 1. docker compose up
 

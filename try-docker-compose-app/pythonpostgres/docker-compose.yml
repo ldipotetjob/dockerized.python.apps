@@ -1,0 +1,58 @@
+version: '2.1'
+
+networks:
+  lambda-net:
+  
+services:
+
+  #######################################
+  # Postgres: The database used by Kong
+  #######################################
+  lambda-database:
+    image: postgres:latest
+    container_name: lambda-db
+    environment:
+      POSTGRES_DB: genhub
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - lambda-net
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: on-failure
+
+  #######################################
+  # genhub database creation
+  #######################################
+  python-dbsetup:
+    image: postgres-setup
+    command: setup genhub
+    depends_on:
+      lambda-database:
+        condition: service_healthy
+    environment:
+      PSETUP_PG_HOST: lambda-db
+      PSETUP_PG_USER: postgres
+      PSETUP_PG_PASSWORD: postgres
+      PSETUP_PG_DATABASE: genhub
+    networks:
+      - lambda-net
+    restart: on-failure
+
+  #######################################
+  # Example Microservice
+  #######################################
+  app:
+    environment:
+      - POSTGRES_IPADDRESS=lambda-db
+      - POSTGRES_DB=genhub
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    build: .
+    container_name: genhub-app
+    networks:
+      - kong-net
+    restart: on-failure
