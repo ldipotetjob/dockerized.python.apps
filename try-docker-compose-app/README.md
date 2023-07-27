@@ -1,13 +1,9 @@
 ## README 
 
-### This app is in in reference to docker compose getting started 
-ref: https://docs.docker.com/compose/gettingstarted/
+This repository contains two POCs 
 
-## how to run the project
-
-1. docker compose up
-
-2. enter to the browse http://localhost:8000/ or http://127.0.0.1:8000  
+1. [In reference to docker compose getting started](https://docs.docker.com/compose/gettingstarted/)
+2. Implementation connecting 2 services(rest resrvice/postgres db).  
 
 
 

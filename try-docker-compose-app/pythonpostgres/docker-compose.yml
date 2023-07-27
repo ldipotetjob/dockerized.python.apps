@@ -2,7 +2,7 @@ version: '2.1'
 
 networks:
   lambda-net:
-  
+
 services:
 
   #######################################
@@ -15,6 +15,12 @@ services:
       POSTGRES_DB: genhub
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      # creating db and table
+      - ./sql/create_db_and_tables.sql:/docker-entrypoint-initdb.d/create_db_and_tables.sql
+      # initializing table
+      - ./sql/initialize_db.sql:/docker-entrypoint-initdb.d/initialize_db.sql   
     networks:
       - lambda-net
     healthcheck:
@@ -22,24 +28,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    restart: on-failure
-
-  #######################################
-  # genhub database creation
-  #######################################
-  python-dbsetup:
-    image: postgres-setup
-    command: setup genhub
-    depends_on:
-      lambda-database:
-        condition: service_healthy
-    environment:
-      PSETUP_PG_HOST: lambda-db
-      PSETUP_PG_USER: postgres
-      PSETUP_PG_PASSWORD: postgres
-      PSETUP_PG_DATABASE: genhub
-    networks:
-      - lambda-net
     restart: on-failure
 
   #######################################
@@ -52,7 +40,14 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     build: .
+    depends_on:
+      lambda-database:
+        condition: service_healthy
     container_name: genhub-app
+    ports:
+      - "8000:5000"
+    volumes:
+      - .:/code
     networks:
-      - kong-net
+      - lambda-net
     restart: on-failure
