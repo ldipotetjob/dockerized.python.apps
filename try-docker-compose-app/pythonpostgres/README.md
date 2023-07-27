@@ -15,12 +15,16 @@ healthcheck:
 ### Run enviroment 
 
 * docker compose up 
+* docker compose up --build: for rebuilding again
 
 ### Turn down environment
 
 1. docker compose down
 2. docker-compose down --volumes
 
+### call pl into the container when it is up 
+1. docker exec -ti lambda-db bash
+2. psql -h lambda-db -U genhub
 
 > <picture>
 >   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Mqxx/GitHub-Markdown/main/blockquotes/badge/light-theme/issue.svg">

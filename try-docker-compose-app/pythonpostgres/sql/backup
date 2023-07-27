@@ -1,0 +1,2 @@
+CREATE USER genhub WITH PASSWORD 'genhub';
+CREATE DATABASE genhub;

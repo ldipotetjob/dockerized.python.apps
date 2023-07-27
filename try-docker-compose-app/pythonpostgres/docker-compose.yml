@@ -13,18 +13,16 @@ services:
     container_name: lambda-db
     environment:
       POSTGRES_DB: genhub
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: genhub
+      POSTGRES_PASSWORD: genhub
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
-      # creating db and table
-      - ./sql/create_db_and_tables.sql:/docker-entrypoint-initdb.d/create_db_and_tables.sql
-      # initializing table
-      - ./sql/initialize_db.sql:/docker-entrypoint-initdb.d/initialize_db.sql   
+      # creating user
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - lambda-net
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
+      test: ["CMD", "pg_isready", "-U", "genhub"]
       interval: 10s
       timeout: 5s
       retries: 5
