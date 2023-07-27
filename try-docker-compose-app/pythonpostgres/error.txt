@@ -1,0 +1,46 @@
+ > [app 7/8] RUN pip install psycopg2:                                                                                                                  
+#0 0.940 Collecting psycopg2                                                                                                                            
+#0 1.006   Downloading psycopg2-2.9.6.tar.gz (383 kB)                                                                                                   
+#0 1.072      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 384.0/384.0 kB 6.3 MB/s eta 0:00:00                                                               
+#0 1.197   Preparing metadata (setup.py): started
+#0 1.663   Preparing metadata (setup.py): finished with status 'error'
+#0 1.673   error: subprocess-exited-with-error
+#0 1.673   
+#0 1.673   × python setup.py egg_info did not run successfully.
+#0 1.673   │ exit code: 1
+#0 1.673   ╰─> [23 lines of output]
+#0 1.673       running egg_info
+#0 1.673       creating /tmp/pip-pip-egg-info-cn5tl4xr/psycopg2.egg-info
+#0 1.673       writing /tmp/pip-pip-egg-info-cn5tl4xr/psycopg2.egg-info/PKG-INFO
+#0 1.673       writing dependency_links to /tmp/pip-pip-egg-info-cn5tl4xr/psycopg2.egg-info/dependency_links.txt
+#0 1.673       writing top-level names to /tmp/pip-pip-egg-info-cn5tl4xr/psycopg2.egg-info/top_level.txt
+#0 1.673       writing manifest file '/tmp/pip-pip-egg-info-cn5tl4xr/psycopg2.egg-info/SOURCES.txt'
+#0 1.673       
+#0 1.673       Error: pg_config executable not found.
+#0 1.673       
+#0 1.673       pg_config is required to build psycopg2 from source.  Please add the directory
+#0 1.673       containing pg_config to the $PATH or specify the full executable path with the
+#0 1.673       option:
+#0 1.673       
+#0 1.673           python setup.py build_ext --pg-config /path/to/pg_config build ...
+#0 1.673       
+#0 1.673       or with the pg_config option in 'setup.cfg'.
+#0 1.673       
+#0 1.673       If you prefer to avoid building psycopg2 from source, please install the PyPI
+#0 1.673       'psycopg2-binary' package instead.
+#0 1.673       
+#0 1.673       For further information please check the 'doc/src/install.rst' file (also at
+#0 1.673       <https://www.psycopg.org/docs/install.html>).
+#0 1.673       
+#0 1.673       [end of output]
+#0 1.673   
+#0 1.673   note: This error originates from a subprocess, and is likely not a problem with pip.
+#0 1.676 error: metadata-generation-failed
+#0 1.676 
+#0 1.676 × Encountered error while generating package metadata.
+#0 1.676 ╰─> See above for output.
+#0 1.676 
+#0 1.676 note: This is an issue with the package mentioned above, not pip.
+#0 1.676 hint: See above for details.
+------
+failed to solve: process "/bin/sh -c pip install psycopg2" did not complete successfully: exit code: 1
