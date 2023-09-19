@@ -1,6 +1,6 @@
 ## This is a POC implementing CRU operation in Postgres with python
 
-### Checking is postgres is ready in our docker compose(pg_isready):
+### Checking if postgres is ready in our docker compose(pg_isready):
 
 ```shell
 healthcheck:
