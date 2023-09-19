@@ -1,4 +1,4 @@
-## This is a POC implementando CRU operation in Postgres with python
+## This is a POC implementing CRU operation in Postgres with python
 
 ### Checking is postgres is ready in our docker compose(pg_isready):
 
