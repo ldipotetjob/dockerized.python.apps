@@ -37,6 +37,7 @@ services:
       - POSTGRES_DB=genhub
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - FLASK_DEBUG=true  
     build: .
     depends_on:
       lambda-database:

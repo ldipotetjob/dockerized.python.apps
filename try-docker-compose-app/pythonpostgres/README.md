@@ -14,8 +14,8 @@ healthcheck:
 
 ### Run enviroment 
 
-* docker compose up 
-* docker compose up --build: for rebuilding again
+1. **docker compose** up or **docker compose up --build**: for rebuilding again
+2. test the environment: http://localhost:8000/
 
 ### Turn down environment
 
