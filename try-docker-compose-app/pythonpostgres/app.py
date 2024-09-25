@@ -1,11 +1,8 @@
-from datetime import datetime
-
-import psycopg2
 import os
-import time
-
-from flask import Flask, render_template, request, redirect, url_for
+from typing import List, Any
 import psycopg2
+from datetime import datetime
+from flask import Flask, render_template
 
 # ref.: solution avoiding the comment:
 # genhub-app  | WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
@@ -23,9 +20,7 @@ db_username = "genhub"
 passwd = "genhub"
 port = 5432
 browse_query = "select * from genhubrequest;"
-
 conn = psycopg2.connect(host=db_hostname, user=db_username, password=passwd, port=port, dbname="genhub")
-global data_get
 
 
 def timestamp_in_millis():
@@ -35,8 +30,7 @@ def timestamp_in_millis():
 
 
 def get_genhubrequest():
-    global data_get
-
+    data_get = list[Any]
     try:
         cur = conn.cursor()
         cur.execute(browse_query)
@@ -51,7 +45,7 @@ def get_genhubrequest():
 
 
 def post_update():
-    global data_update
+    data_update = list[Any]
     try:
         cur = conn.cursor()
         # SQL statement to update te table
@@ -76,7 +70,7 @@ def post_insert():
     request_id = "petergabriel@email.net_1718367059812"
     user_id = "petergabriel@email.net"
     request_id_new = f"{user_id}_{timestamp_in_millis()}"
-    global data_insert
+    data_insert = List[Any]
     try:
         query = (
             f"insert into genhubrequest (userid,request_time,requestid,requested_samples,available_samples,payable,"
@@ -96,6 +90,7 @@ def post_insert():
         # if conn:
         #    conn.close()
     return render_template('index.html', data=data_insert)
+
 
 @app.route('/')
 def index():
