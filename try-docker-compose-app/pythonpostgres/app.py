@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import psycopg2
 import os
 import time
@@ -20,21 +22,28 @@ db_hostname = os.getenv("POSTGRES_IPADDRESS")
 db_username = "genhub"
 passwd = "genhub"
 port = 5432
+browse_query = "select * from genhubrequest;"
 
 conn = psycopg2.connect(host=db_hostname, user=db_username, password=passwd, port=port, dbname="genhub")
 global data_get
+
+
+def timestamp_in_millis():
+    now = datetime.now()
+    timestamp = round(datetime.timestamp(now) * 1000)
+    return timestamp
 
 
 def get_genhubrequest():
     global data_get
 
     try:
-        cursor = conn.cursor()
-        cursor.execute("select * from genhubrequest;")
+        cur = conn.cursor()
+        cur.execute(browse_query)
         # for record in cursor:
         #   print(record)
-        data_get = cursor.fetchall()
-        cursor.close()
+        data_get = cur.fetchall()
+        cur.close()
         # conn.close()
     except Exception as e:
         print("Exception: ", e)
@@ -44,7 +53,7 @@ def get_genhubrequest():
 def post_update():
     global data_update
     try:
-        cursor = conn.cursor()
+        cur = conn.cursor()
         # SQL statement to update te table
         update_query = """
         UPDATE genhubrequest
@@ -52,27 +61,47 @@ def post_update():
         """
         # data_to_update=(data_to_be_updated,constraint_of_requestid)
         data_to_update = ("fail", "petergabriel@email.net_1718367059812")
-        cursor.execute(update_query, data_to_update)
+        cur.execute(update_query, data_to_update)
         conn.commit()
-
-        cursor.execute("select * from genhubrequest;")
-        data_update = cursor.fetchall()
-        cursor.close()
-        # conn.close()
+        cur.execute(browse_query)
+        data_update = cur.fetchall()
+        cur.close()
     except Exception as e:
         print("Exception: ", e)
     return render_template('index.html', data=data_update)
 
-def post_insert():
-    # TODO Testing inserts
-    # insert into genhubrequest (userid,request_time,requestid,requested_samples,available_samples,payable,status) select userid,'2024-09-24 18:22:13','prueba1@gmaila.com_1727198533767',requested_samples,available_samples+requested_samples,True,'rollbacking' from genhubrequest where requestid = 'prueba1@gmaila.com_1724414549546';
-    pass
 
+def post_insert():
+    now_formatted = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    request_id = "petergabriel@email.net_1718367059812"
+    user_id = "petergabriel@email.net"
+    request_id_new = f"{user_id}_{timestamp_in_millis()}"
+    global data_insert
+    try:
+        query = (
+            f"insert into genhubrequest (userid,request_time,requestid,requested_samples,available_samples,payable,"
+            f"status) select userid,'{now_formatted}','{request_id_new}',requested_samples,"
+            f"available_samples+requested_samples,"
+            f"True,'rollbacking' from genhubrequest where requestid = '{request_id}';")
+        cur = conn.cursor()
+        cur.execute(query)
+        conn.commit()
+        cur.execute(browse_query)
+        data_insert = data_insert = cur.fetchall()
+        cur.close()
+    except Exception as err:
+        print("Exception: ", err)
+    finally:
+        pass
+        # if conn:
+        #    conn.close()
+    return render_template('index.html', data=data_insert)
 
 @app.route('/')
 def index():
     # return 'Hello , we are in genhub request'
     return get_genhubrequest()
+
 
 @app.route('/update')
 def add():
