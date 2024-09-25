@@ -11,5 +11,5 @@ CREATE TABLE genhubrequest (
   PRIMARY KEY (requestid)
 );
 
-INSERT INTO genhubrequest values ('petergabriel@email.net','2022-10-19 10:23:54','petergabriel@email.net1666171434',50,60,true,'not started');
-INSERT INTO genhubrequest values ('sebbatch@mail.com','2022-11-23 10:23:54','jfdz@gmaila.com1668853417',150,70,true,'not started');
+INSERT INTO genhubrequest values ('petergabriel@email.net','2024-06-14 13:10:59','petergabriel@email.net_1718367059812',50,60,true,'not started');
+INSERT INTO genhubrequest values ('lennykravitz@gmail.com','2024-06-14 13:11:57','lennykravitz@gmail.com_1718367117788',150,70,true,'not started');
