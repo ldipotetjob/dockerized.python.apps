@@ -24,7 +24,7 @@ services:
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "genhub"]
       interval: 10s
-      timeout: 5s
+      timeout: 10s
       retries: 5
     restart: on-failure
 

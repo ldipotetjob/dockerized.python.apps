@@ -1,4 +1,3 @@
-
 GRANT ALL PRIVILEGES ON DATABASE genhub TO genhub;
 CREATE TABLE genhubrequest (
   userId text NOT NULL,
