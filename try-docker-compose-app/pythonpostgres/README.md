@@ -15,7 +15,12 @@ healthcheck:
 ### Run enviroment 
 
 1. **docker compose** up or **docker compose up --build**: for rebuilding again
-2. test the web app: http://localhost:8000/
+
+### test the web app in the following order:
+
+1. http://localhost:8000/
+2. http://localhost:8000/update
+3. http://localhost:8000/insert
 
 ### Turn down environment
 
